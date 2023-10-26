@@ -3,8 +3,8 @@ package msgpack
 import "bytes"
 
 func Marshal(v any) ([]byte, error) {
-	enc := new(Encoder)
 	var buf bytes.Buffer
+	enc := NewEncoder(nil, &buf)
 	err := enc.Encode(v)
 	b := buf.Bytes()
 	if err != nil {

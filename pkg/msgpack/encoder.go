@@ -1,16 +1,20 @@
 package msgpack
 
 import (
+	"bytes"
 	"io"
+	"reflect"
 )
 
 type Encoder struct {
-	w io.Writer
+	w   io.Writer
+	buf *bytes.Buffer
 }
 
-func NewEncoder(w io.Writer) *Encoder {
+func NewEncoder(w io.Writer, buf *bytes.Buffer) *Encoder {
 	e := &Encoder{
-		w: w,
+		w:   w,
+		buf: buf,
 	}
 	return e
 }
@@ -42,6 +46,5 @@ func (o *Encoder) Encode(v any) error {
 		// case time.Time:
 		// 	return o.EncodeTime(v)
 	}
-	// return o.EncodeValue(reflect.ValueOf(v))
-	return nil
+	return o.EncodeValue(reflect.ValueOf(v))
 }
