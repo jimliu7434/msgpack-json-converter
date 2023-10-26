@@ -2,6 +2,7 @@ package msgpack
 
 import (
 	"errors"
+	"log"
 	"reflect"
 )
 
@@ -11,6 +12,7 @@ func (o *Encoder) EncodeValue(v reflect.Value) error {
 	}
 
 	t := v.Type()
+	log.Printf("type: %v", t.Kind())
 	switch t.Kind() {
 	case reflect.String:
 		return o.EncodeString(v.String())

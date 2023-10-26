@@ -7,14 +7,14 @@ import (
 )
 
 type Encoder struct {
-	w   io.Writer
-	buf *bytes.Buffer
+	w io.Writer
 }
 
-func NewEncoder(w io.Writer, buf *bytes.Buffer) *Encoder {
+func NewEncoder(buf *bytes.Buffer) *Encoder {
+	w := io.Writer(buf)
 	e := &Encoder{
-		w:   w,
-		buf: buf,
+		w: w,
+		//buf: buf,
 	}
 	return e
 }

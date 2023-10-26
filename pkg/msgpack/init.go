@@ -4,7 +4,7 @@ import "bytes"
 
 func Marshal(v any) ([]byte, error) {
 	var buf bytes.Buffer
-	enc := NewEncoder(nil, &buf)
+	enc := NewEncoder(&buf)
 	err := enc.Encode(v)
 	b := buf.Bytes()
 	if err != nil {
