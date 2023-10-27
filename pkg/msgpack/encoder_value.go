@@ -6,8 +6,16 @@ import (
 	"reflect"
 )
 
+func nilable(kind reflect.Kind) bool {
+	switch kind {
+	case reflect.Chan, reflect.Func, reflect.Interface, reflect.Map, reflect.Ptr, reflect.Slice:
+		return true
+	}
+	return false
+}
+
 func (o *Encoder) EncodeValue(v reflect.Value) error {
-	if v.IsNil() {
+	if nilable(v.Kind()) && v.IsNil() {
 		return o.EncodeNil()
 	}
 
