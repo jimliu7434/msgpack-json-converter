@@ -29,21 +29,31 @@ const (
 	Map32   = 0xdf
 )
 
-var StrFunc = func(length int) ([]byte, error) {
+const (
+	_ShortStrLen = 2 ^ 4  // 16
+	_StrLen      = 2 ^ 8  // 256
+	_Str16Len    = 2 ^ 16 // 65536
+	_Str32Len    = 2 ^ 32 // 4294967296
+)
 
+var StrFunc = func(length int) ([]byte, error) {
 	switch {
-	case length < 32:
+	case length < _ShortStrLen:
 		return []byte{Str + byte(length)}, nil
-	case length < 256:
+	case length < _StrLen:
 		return []byte{Str8, byte(length)}, nil
-	case length < 65536:
-		bs := []byte{Str16}
+	case length < _Str16Len:
+		b := []byte{Str16}
+		bs := make([]byte, 2)
 		binary.BigEndian.PutUint16(bs, uint16(length))
-		return bs, nil
-	case length < 4294967296:
-		bs := []byte{Str32}
+		b = append(b, bs...)
+		return b, nil
+	case length < _Str32Len:
+		b := []byte{Str32}
+		bs := make([]byte, 4)
 		binary.BigEndian.PutUint32(bs, uint32(length))
-		return bs, nil
+		b = append(b, bs...)
+		return b, nil
 	default:
 		return []byte{}, errors.New("too long string")
 	}
