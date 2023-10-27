@@ -211,7 +211,7 @@ func Test_Marshal(t *testing.T) {
 }
 
 func showBinary(t *testing.T, data []byte) {
-	limit := 16
+	limit := 8
 	t.Helper()
 	for i, b := range data {
 		if i > limit {
