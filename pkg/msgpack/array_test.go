@@ -23,12 +23,12 @@ func TestMarshal_Array(t *testing.T) {
 	})
 
 	t.Run("multi type", func(t *testing.T) {
-		expect := []any{0, "hello", "world", true}
+		expect := []any{int8(0), "hello", "world", true}
 		execTestingArray[any](t, expect, showBin)
 	})
 
 	t.Run("nested array", func(t *testing.T) {
-		expect := []any{[]any{0, "hello"}, "world", true}
+		expect := []any{[]any{int8(0), "hello"}, "world", true}
 		execTestingArray[any](t, expect, showBin)
 	})
 }
