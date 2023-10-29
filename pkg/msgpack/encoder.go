@@ -20,8 +20,6 @@ func NewEncoder(buf *bytes.Buffer) *Encoder {
 
 func (o *Encoder) Encode(v any) error {
 	switch v := v.(type) {
-	// case nil:
-	// 	return o.EncodeNil()
 	case string:
 		return o.EncodeString(v)
 	case int:
