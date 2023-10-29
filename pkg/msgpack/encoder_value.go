@@ -15,7 +15,10 @@ func nilable(kind reflect.Kind) bool {
 }
 
 func (o *Encoder) EncodeValue(val reflect.Value) error {
-	if nilable(val.Kind()) && val.IsNil() {
+	if val.Kind() == 0x00 {
+		// when val is "nil" & val's type is "any"
+		return o.EncodeNil()
+	} else if nilable(val.Kind()) && val.IsNil() {
 		return o.EncodeNil()
 	}
 

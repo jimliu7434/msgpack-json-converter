@@ -5,19 +5,15 @@ import (
 )
 
 func TestMarshal_Nil(t *testing.T) {
-	var expect any = nil
+	showBin := false
 
-	// toBeTest, err := mypkg.Marshal(expect)
-	// if err != nil {
-	// 	t.Fatal(err)
-	// }
+	t.Run("nil ptr", func(t *testing.T) {
+		var expect *string = nil
+		execTestingSimpleType[*string](t, expect, showBin)
+	})
 
-	// var actual any
-	// err = msgpack.Unmarshal(toBeTest, &actual)
-	// if err != nil {
-	// 	t.Fatalf("unmarshal failed: %s", err.Error())
-	// }
-
-	// assert.Equal(t, expect, actual)
-	execTestingSimpleType[any](t, expect, false)
+	t.Run("nil interface", func(t *testing.T) {
+		var expect any = nil
+		execTestingSimpleType[any](t, expect, showBin)
+	})
 }
