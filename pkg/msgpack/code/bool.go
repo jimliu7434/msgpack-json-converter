@@ -4,9 +4,4 @@ const (
 	Nil   = 0xc0
 	False = 0xc2
 	True  = 0xc3
-
-	Array16 = 0xdc
-	Array32 = 0xdd
-	Map16   = 0xde
-	Map32   = 0xdf
 )

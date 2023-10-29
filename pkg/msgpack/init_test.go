@@ -40,3 +40,27 @@ func execTestingSimpleType[T any](t *testing.T, expect T, showBin bool) {
 
 	assert.Equal(t, expect, *actual)
 }
+
+func execTestingArray[T any](t *testing.T, expect []T, showBin bool) {
+	toBeTest, err := mypkg.Marshal(expect)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if showBin {
+		correctBin, _ := msgpack.Marshal(expect)
+		showBinary(t, correctBin)
+		t.Log("---")
+		showBinary(t, []byte(toBeTest))
+	}
+
+	actual := []T{}
+	err = msgpack.Unmarshal(toBeTest, &actual)
+	if err != nil {
+		t.Fatalf("unmarshal failed: %s", err.Error())
+	}
+
+	for i, v := range expect {
+		assert.Equal(t, v, actual[i])
+	}
+}

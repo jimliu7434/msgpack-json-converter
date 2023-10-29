@@ -10,10 +10,11 @@ func (o *Encoder) EncodeString(v string) error {
 		return err
 	}
 
-	bytes := []byte{}
-	bytes = append(bytes, codeBytes...)
-	bytes = append(bytes, ([]byte(v))...)
-
-	_, err = o.w.Write(bytes)
-	return err
+	if _, err := o.w.Write(codeBytes); err != nil {
+		return err
+	}
+	if _, err := o.w.Write([]byte(v)); err != nil {
+		return err
+	}
+	return nil
 }

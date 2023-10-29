@@ -14,16 +14,39 @@ func nilable(kind reflect.Kind) bool {
 	return false
 }
 
-func (o *Encoder) EncodeValue(v reflect.Value) error {
+func (o *Encoder) EncodeValue(val reflect.Value) error {
+	if nilable(val.Kind()) && val.IsNil() {
+		return o.EncodeNil()
+	}
+
+	v := val
+	t := v.Type()
+	if t.Kind() == reflect.Ptr || t.Kind() == reflect.Interface {
+		v = v.Elem()
+		t = v.Type()
+	}
+
 	if nilable(v.Kind()) && v.IsNil() {
 		return o.EncodeNil()
 	}
 
-	t := v.Type()
 	log.Printf("type: %v", t.Kind())
+
 	switch t.Kind() {
 	case reflect.String:
 		return o.EncodeString(v.String())
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		return o.EncodeInt(v.Int())
+	case reflect.Bool:
+		return o.EncodeBool(v.Bool())
+	case reflect.Float32, reflect.Float64:
+		return o.EncodeFloat(v.Float())
+	case reflect.Array, reflect.Slice:
+		return o.EncodeArray(v)
+	// case reflect.Map:
+	// 	return o.EncodeMap(v)
+	case reflect.Struct:
+		return o.EncodeValue(v)
 	}
 	return errors.New("not implement type")
 }
