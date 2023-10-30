@@ -10,6 +10,8 @@ tested @ go:1.21
 
 主要 package 位置 `pkg/msgpack`  
 
+※ 僅在測試驗證時引入他人實作的 msgpack 模組   
+
 ### 測試
 
 * 測試 `pkg/msgpack`
