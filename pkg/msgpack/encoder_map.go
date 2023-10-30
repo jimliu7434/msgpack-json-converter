@@ -43,20 +43,13 @@ func (o *Encoder) writePropKV(propName string, propVal reflect.Value) error {
 
 	// write val
 	if nilable(propVal.Kind()) && propVal.IsNil() {
-		if err := o.EncodeNil(); err != nil {
-			return err
-		}
+		return o.EncodeNil()
 	}
 	if propVal.Kind() == reflect.Ptr {
 		propVal = propVal.Elem()
 	}
 	if nilable(propVal.Kind()) && propVal.IsNil() {
-		if err := o.EncodeNil(); err != nil {
-			return err
-		}
+		return o.EncodeNil()
 	}
-	if err := o.EncodeValue(propVal); err != nil {
-		return err
-	}
-	return nil
+	return o.EncodeValue(propVal)
 }

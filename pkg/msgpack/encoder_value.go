@@ -32,7 +32,7 @@ func (o *Encoder) EncodeValue(val reflect.Value) error {
 		return o.EncodeNil()
 	}
 
-	//log.Printf("type: %v", t.Kind())
+	//fmt.Printf("type: %v\n", t.Kind())
 
 	switch t.Kind() {
 	case reflect.String:

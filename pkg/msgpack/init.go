@@ -12,7 +12,3 @@ func Marshal(v any) ([]byte, error) {
 	}
 	return b, err
 }
-
-func Unmarshal(data []byte, v any) error {
-	return nil
-}
