@@ -25,7 +25,7 @@ var (
 	_Float64Range  = []float64{-1.797693134862315708145274237317043567981e+308, 1.797693134862315708145274237317043567981e+308}
 )
 
-func IntFunc(v int64) ([]byte, error) {
+func GetFirstBytesInt(v int64) ([]byte, error) {
 	switch {
 	case v >= _IntShortRange[0] && v <= _IntShortRange[1]:
 		if v < 0 {
@@ -57,7 +57,7 @@ func IntFunc(v int64) ([]byte, error) {
 	}
 }
 
-func FloatFunc(v float64) ([]byte, error) {
+func GetFirstBytesFloat(v float64) ([]byte, error) {
 	switch {
 	case v >= _Float32Range[0] && v <= _Float32Range[1]:
 		b := []byte{_PrefixFloat32}

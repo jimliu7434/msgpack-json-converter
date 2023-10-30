@@ -6,7 +6,6 @@ import (
 
 func TestMarshal_Array(t *testing.T) {
 	showBin := false
-
 	t.Run("single type (bool)", func(t *testing.T) {
 		expect := []bool{false, false, true}
 		execTestingArray[bool](t, expect, showBin)

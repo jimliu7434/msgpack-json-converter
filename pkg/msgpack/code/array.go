@@ -17,7 +17,7 @@ var (
 	_Arr32Len  = int64(2147483647) // 2^31 - 1
 )
 
-func ArrayFunc(l int64) ([]byte, error) {
+func GetFirstBytesArray(l int64) ([]byte, error) {
 	switch {
 	case l <= _FixArrLen:
 		return []byte{_PrefixFixArr + byte(l)}, nil

@@ -5,7 +5,7 @@ import (
 )
 
 func (o *Encoder) EncodeInt(v int64) error {
-	bytesWithPrifix, err := msgpackcode.IntFunc(v)
+	bytesWithPrifix, err := msgpackcode.GetFirstBytesInt(v)
 	if err != nil {
 		return err
 	}
@@ -15,7 +15,7 @@ func (o *Encoder) EncodeInt(v int64) error {
 }
 
 func (o *Encoder) EncodeFloat(v float64) error {
-	bytesWithPrifix, err := msgpackcode.FloatFunc(v)
+	bytesWithPrifix, err := msgpackcode.GetFirstBytesFloat(v)
 	if err != nil {
 		return err
 	}

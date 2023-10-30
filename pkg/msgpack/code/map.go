@@ -17,7 +17,7 @@ var (
 	_Map32Len  = int64(2147483647) // 2^31 - 1
 )
 
-func MapFunc(l int64) ([]byte, error) {
+func GetFirstBytesMap(l int64) ([]byte, error) {
 	switch {
 	case l <= _FixMapLen:
 		return []byte{_PrefixFixMap + byte(l)}, nil

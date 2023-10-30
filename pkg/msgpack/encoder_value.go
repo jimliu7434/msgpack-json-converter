@@ -2,7 +2,6 @@ package msgpack
 
 import (
 	"errors"
-	"log"
 	"reflect"
 )
 
@@ -33,7 +32,7 @@ func (o *Encoder) EncodeValue(val reflect.Value) error {
 		return o.EncodeNil()
 	}
 
-	log.Printf("type: %v", t.Kind())
+	//log.Printf("type: %v", t.Kind())
 
 	switch t.Kind() {
 	case reflect.String:
@@ -46,10 +45,10 @@ func (o *Encoder) EncodeValue(val reflect.Value) error {
 		return o.EncodeFloat(v.Float())
 	case reflect.Array, reflect.Slice:
 		return o.EncodeArray(v)
-	// case reflect.Map:
-	// 	return o.EncodeMap(v)
+	case reflect.Map:
+		return o.EncodeMap(v)
 	case reflect.Struct:
-		return o.EncodeValue(v)
+		return o.EncodeStruct(v)
 	}
 	return errors.New("not implement type")
 }

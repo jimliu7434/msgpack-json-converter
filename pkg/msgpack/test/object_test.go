@@ -12,14 +12,12 @@ type Object struct {
 	Int    int
 	String string
 	Bool   bool
-	Float  float64
+	Float  float32
 	Object *Object
 }
 
 func TestMarshal_Object(t *testing.T) {
 	showBin := false
-	t.SkipNow()
-
 	var testCases = []struct {
 		name   string
 		skip   bool
@@ -29,7 +27,7 @@ func TestMarshal_Object(t *testing.T) {
 			name: "int, string, bool, float",
 			skip: false,
 			expect: Object{
-				Int:    0,
+				Int:    1000,
 				String: "hello",
 				Bool:   true,
 				Float:  1.23,
@@ -40,12 +38,12 @@ func TestMarshal_Object(t *testing.T) {
 			name: "nested object",
 			skip: false,
 			expect: Object{
-				Int:    0,
+				Int:    1000,
 				String: "hello",
 				Bool:   true,
 				Float:  1.23,
 				Object: &Object{
-					Int:    1,
+					Int:    2000,
 					String: "world",
 					Bool:   false,
 					Float:  11.2233,
@@ -93,4 +91,45 @@ func TestMarshal_Object(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestMarshal_Map(t *testing.T) {
+	showBin := false
+	tc := struct {
+		name   string
+		expect *map[string]any
+	}{
+		name: "complex map",
+		expect: &map[string]any{
+			"myint":    int16(1000),
+			"mystring": "hello",
+			"mybool":   true,
+			"myfloat":  float32(1.23),
+		},
+	}
+
+	t.Run(tc.name, func(t *testing.T) {
+		toBeTest, err := mypkg.Marshal(tc.expect)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if showBin {
+			correctBin, _ := msgpack.Marshal(tc.expect)
+			showBinary(t, correctBin)
+			t.Log("---")
+			showBinary(t, []byte(toBeTest))
+		}
+
+		actual := &map[string]any{}
+		err = msgpack.Unmarshal(toBeTest, actual)
+		if err != nil {
+			t.Fatalf("unmarshal failed: %s", err.Error())
+		}
+
+		for k, v := range *tc.expect {
+			assert.Equal(t, v, (*actual)[k])
+		}
+	})
+
 }

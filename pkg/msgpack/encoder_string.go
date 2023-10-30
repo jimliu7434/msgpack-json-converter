@@ -5,7 +5,7 @@ import (
 )
 
 func (o *Encoder) EncodeString(v string) error {
-	codeBytes, err := msgpackcode.StrFunc(len(v))
+	codeBytes, err := msgpackcode.GetFirstBytesString(len(v))
 	if err != nil {
 		return err
 	}

@@ -6,7 +6,7 @@ import (
 )
 
 func (o *Encoder) EncodeArray(v reflect.Value) error {
-	firstBytes, err := msgpackcode.ArrayFunc(int64(v.Len()))
+	firstBytes, err := msgpackcode.GetFirstBytesArray(int64(v.Len()))
 	if err != nil {
 		return err
 	}

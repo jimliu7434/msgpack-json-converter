@@ -19,7 +19,7 @@ const (
 	_Str32Len    = 4294967296 // 2^32
 )
 
-var StrFunc = func(length int) ([]byte, error) {
+var GetFirstBytesString = func(length int) ([]byte, error) {
 	switch {
 	case length < _ShortStrLen:
 		return []byte{_PrefixStr + byte(length)}, nil
