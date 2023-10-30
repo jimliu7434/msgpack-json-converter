@@ -1,5 +1,7 @@
 # msgpack-json-converter
 
+[https://hackmd.io/@BejBFf6iSvSVQI4CAFbU0A/HkOE0oVzp](https://hackmd.io/@BejBFf6iSvSVQI4CAFbU0A/HkOE0oVzp)
+
 思維 JSON -> struct -> MessagePack
 
 ## 系統需求
