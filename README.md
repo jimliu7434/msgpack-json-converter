@@ -25,7 +25,7 @@ go test ./pkg/msgpack/... -v
 * 測試 JSON -> MessagePack
 
 ```shell
-go test ./main_test.go
+go test ./main_test.go -v
 ```
 
 ## 尚未實作的部分
